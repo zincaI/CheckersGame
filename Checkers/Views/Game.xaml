@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Game" Height="450" Width="800">
     <Grid>
-        <Button Content="bla"/>
+        
     </Grid>
 </Window>

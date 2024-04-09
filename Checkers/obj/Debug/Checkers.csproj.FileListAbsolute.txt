@@ -15,3 +15,4 @@ C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checker
 C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\obj\Debug\Checkers.csproj.CoreCompileInputs.cache
 C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\obj\Debug\Checkers.exe
 C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\obj\Debug\Checkers.pdb
+C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\obj\Debug\App.baml
