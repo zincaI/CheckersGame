@@ -51,10 +51,10 @@
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="77"/>
+                                        <ColumnDefinition Width="90"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="77"/>
+                                        <RowDefinition Height="90"/>
                                     </Grid.RowDefinitions>
 
                                     <Button Style="{StaticResource RotundButton}" 

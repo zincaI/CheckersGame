@@ -1,8 +1,8 @@
-﻿using Checkers.Models;
-using System.Collections.ObjectModel;
-using Checkers.Services;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using Checkers.Models;
+using Checkers.Services;
 
 namespace Checkers.ViewModels
 {

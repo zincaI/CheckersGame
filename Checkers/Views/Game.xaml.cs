@@ -1,4 +1,5 @@
-﻿using Checkers.ViewModels;
+﻿using Checkers.Models;
+using Checkers.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,19 @@ namespace Checkers.Views
             InitializeComponent();
             gm = new GameVM();
             DataContext = gm;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var piece = button?.DataContext as Piece;
+            if (piece != null)
+            {
+
+
+                gm.PossibleActions(piece.row, piece.column);
+            }
+
         }
     }
 }
