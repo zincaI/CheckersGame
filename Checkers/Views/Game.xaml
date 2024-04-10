@@ -4,7 +4,6 @@
         xmlns:local="clr-namespace:Checkers.ViewModels" 
         xmlns:converters="clr-namespace:Checkers.Converters">
 
-
     <Window.Resources>
         <Style x:Key="RotundButton" TargetType="Button">
             <Setter Property="Width" Value="60"/>
@@ -31,10 +30,9 @@
         <converters:ColorConverter x:Key="ColorConverter"/>
 
     </Window.Resources>
-    
     <Grid Margin="50">
 
-        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Grid.ColumnSpan="8" Source="C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\bin\Debug\Capture.PNG"/>
+        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Grid.ColumnSpan="8" Source="C:\Users\zinca\OneDrive\Desktop\dummy4\Checkers_8\Checkers\Checkers\altTestDame\altTestDame\bin\Debug\Capture.PNG"/>
 
 
         <ItemsControl x:Name="ButtonsGrid" VerticalAlignment="Center" HorizontalAlignment="Center" 
@@ -51,10 +49,10 @@
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="77"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="90"/>
+                                        <RowDefinition Height="77"/>
                                     </Grid.RowDefinitions>
 
                                     <Button Style="{StaticResource RotundButton}" 
@@ -76,6 +74,12 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <Label x:Name="Red_Score_" Content="Red Score" Margin="990,112,119,0" VerticalAlignment="Top" Height="30"/>
+        <Label x:Name="redScoreLabel" Content="{Binding LabelTextRed}" HorizontalAlignment="Left" Margin="1058,114,0,0" VerticalAlignment="Top" Height="28" Width="52"/>
+        <Label x:Name="Black_Score" Content="Black Score" Margin="990,540,119,0" VerticalAlignment="Top" Height="30"/>
+        <Label x:Name="blackScoreLabel" Content="{Binding LabelTextBlack}" HorizontalAlignment="Left" Margin="1053,542,0,0" VerticalAlignment="Top" Height="28" Width="52"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="169,593,0,0" VerticalAlignment="Top" Click="Save_Click"/>
+        <Button Content="load" HorizontalAlignment="Left" Margin="150,300,0,0" VerticalAlignment="Top" Click="Load_Click"/>
 
     </Grid>
 </Window>

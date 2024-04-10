@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using Checkers.Models;
 using Checkers.Services;
@@ -12,6 +14,37 @@ namespace Checkers.ViewModels
         private ObservableCollection<ObservableCollection<Piece>> _board;
 
         Piece lastPiece;
+
+        private int redScore = 0;
+        private int blackScore = 0;
+
+        colorpiece playerTurn = colorpiece.Black;
+
+        public int LabelTextRed
+        {
+            get { return redScore; }
+            set
+            {
+                if (redScore != value)
+                {
+                    redScore = value;
+                    OnPropertyChanged(nameof(LabelTextRed));
+                }
+            }
+        }
+        public int LabelTextBlack
+        {
+            get { return blackScore; }
+            set
+            {
+                if (blackScore != value)
+                {
+                    blackScore = value;
+                    OnPropertyChanged(nameof(LabelTextBlack));
+                }
+            }
+        }
+
 
         public ICommand PieceClickedCommand { get; }
 
@@ -66,49 +99,111 @@ namespace Checkers.ViewModels
         private void PieceClicked(object parameter)
         {
             var piece = parameter as Piece;
-            for (int i = 0; i < Board.Count; i++)
+            if (piece.Color == playerTurn || piece.Color == colorpiece.Green)
             {
-                for (int j = 0; j < Board[i].Count; j++)
+
+                for (int i = 0; i < Board.Count; i++)
                 {
-                    if (Board[i][j].Color == colorpiece.Green && Board[i][j].IsVisible == true)
+                    for (int j = 0; j < Board[i].Count; j++)
                     {
-                        Board[i][j].IsVisible = false;
+                        if (Board[i][j].Color == colorpiece.Green && Board[i][j].IsVisible == true)
+                        {
+                            Board[i][j].IsVisible = false;
+                        }
+                    }
+                }
+                if (piece != null && piece.Color != colorpiece.Green)
+                {
+                    lastPiece = piece;
+                    PossibleActions(piece.row, piece.column);
+                }
+                else
+                {
+                    MovePiece(piece, lastPiece);
+                    if (playerTurn == colorpiece.Black)
+                    {
+                        playerTurn = colorpiece.Red;
+                    }
+                    else
+                    {
+                        playerTurn = colorpiece.Black;
                     }
                 }
             }
-            if (piece != null && piece.Color != colorpiece.Green)
-            {
-                lastPiece = piece;
-                PossibleActions(piece.row, piece.column);
-            }
-            else
-            {
-                MovePiece(piece, lastPiece);
-            }
         }
+        public void EndGame()
+        {
+            if (LabelTextRed == 12)
+            {
+                MessageBox.Show("A castigat rosul");
 
+            }
+            else if (LabelTextBlack == 12)
+            {
+                MessageBox.Show("A castigat negru");
+            }
+            Board.Clear();
+            Board = Utility.initBoard();
+            playerTurn = colorpiece.Black;
+            LabelTextBlack = 0;
+            LabelTextRed = 0;
+
+        }
         public void MovePiece(Piece current, Piece last)
         {
             if (current.row - last.row == 2 && current.column - last.column == 2)
             {
+                if (Board[current.row - 1][current.column - 1].Color == colorpiece.Red)
+                {
+                    LabelTextBlack++;
+                }
+                else if (Board[current.row - 1][current.column - 1].Color == colorpiece.Black)
+                {
+                    LabelTextRed++;
+                }
                 Board[current.row - 1][current.column - 1].IsVisible = false;
                 Board[current.row - 1][current.column - 1].Color = colorpiece.Green;
                 Board[current.row - 1][current.column - 1].King = false;
+
             }
             if (current.row - last.row == 2 && current.column - last.column == -2)
             {
+                if (Board[current.row - 1][current.column + 1].Color == colorpiece.Red)
+                {
+                    LabelTextBlack++;
+                }
+                else if (Board[current.row - 1][current.column + 1].Color == colorpiece.Black)
+                {
+                    LabelTextRed++;
+                }
                 Board[current.row - 1][current.column + 1].IsVisible = false;
                 Board[current.row - 1][current.column + 1].Color = colorpiece.Green;
                 Board[current.row - 1][current.column + 1].King = false;
             }
             if (current.row - last.row == -2 && current.column - last.column == 2)
             {
+                if (Board[current.row + 1][current.column - 1].Color == colorpiece.Red)
+                {
+                    LabelTextBlack++;
+                }
+                else if (Board[current.row + 1][current.column - 1].Color == colorpiece.Black)
+                {
+                    LabelTextRed++;
+                }
                 Board[current.row + 1][current.column - 1].IsVisible = false;
                 Board[current.row + 1][current.column - 1].Color = colorpiece.Green;
                 Board[current.row + 1][current.column - 1].King = false;
             }
             if (current.row - last.row == -2 && current.column - last.column == -2)
             {
+                if (Board[current.row + 1][current.column + 1].Color == colorpiece.Red)
+                {
+                    LabelTextBlack++;
+                }
+                else if (Board[current.row + 1][current.column + 1].Color == colorpiece.Black)
+                {
+                    LabelTextRed++;
+                }
                 Board[current.row + 1][current.column + 1].IsVisible = false;
                 Board[current.row + 1][current.column + 1].Color = colorpiece.Green;
                 Board[current.row + 1][current.column + 1].King = false;
@@ -150,6 +245,11 @@ namespace Checkers.ViewModels
 
             OnPropertyChanged(nameof(Board));
 
+            if (LabelTextRed == 12 || LabelTextBlack == 12)
+            {
+                EndGame();
+            }
+
         }
         public void PossibleActions(int row, int colomn)
         {
@@ -189,7 +289,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row >= 2 && colomn <= 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row >= 2 && colomn < 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row - 2][colomn + 2].IsVisible != true && Board[row - 2][colomn + 2].Color != Board[row][colomn].Color)
                                     {
                                         Board[row - 2][colomn + 2].Color = colorpiece.Green;
@@ -227,7 +327,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row >= 2 && colomn <= 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row >= 2 && colomn < 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row - 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row - 2][colomn + 2].Color = colorpiece.Green;
@@ -272,7 +372,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row >= 2 && colomn <= 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row >= 2 && colomn < 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row - 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row - 2][colomn + 2].Color = colorpiece.Green;
@@ -289,7 +389,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn - 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn - 2].Color = colorpiece.Green;
@@ -306,7 +406,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn <= 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn < 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn + 2].Color = colorpiece.Green;
@@ -348,7 +448,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn - 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn - 2].Color = colorpiece.Green;
@@ -370,7 +470,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row >= 2 && colomn <= 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row >= 2 && colomn < 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row - 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row - 2][colomn + 2].Color = colorpiece.Green;
@@ -387,7 +487,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn <= 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn < 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn + 2].Color = colorpiece.Green;
@@ -418,7 +518,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn - 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn - 2].Color = colorpiece.Green;
@@ -434,7 +534,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn <= 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn < 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn + 2].Color = colorpiece.Green;
@@ -453,7 +553,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn - 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn - 2].Color = colorpiece.Green;
@@ -474,7 +574,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn <= 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn < 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn + 2].Color = colorpiece.Green;
@@ -518,7 +618,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row >= 2 && colomn <= 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row >= 2 && colomn < 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row - 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row - 2][colomn + 2].Color = colorpiece.Green;
@@ -535,7 +635,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn - 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn - 2].Color = colorpiece.Green;
@@ -552,7 +652,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn <= 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn < 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn + 2].Color = colorpiece.Green;
@@ -593,7 +693,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn >= 2 && Board[row + 1][colomn - 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn - 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn - 2].Color = colorpiece.Green;
@@ -616,7 +716,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row >= 2 && colomn <= 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row >= 2 && colomn < 6 && Board[row - 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row - 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row - 2][colomn + 2].Color = colorpiece.Green;
@@ -633,7 +733,7 @@ namespace Checkers.ViewModels
                             }
                             else
                             {
-                                if (row <= 6 && colomn <= 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
+                                if (row < 6 && colomn < 6 && Board[row + 1][colomn + 1].Color != Board[row][colomn].Color)
                                     if (Board[row + 2][colomn + 2].IsVisible != true)
                                     {
                                         Board[row + 2][colomn + 2].Color = colorpiece.Green;
@@ -653,6 +753,36 @@ namespace Checkers.ViewModels
             OnPropertyChanged(nameof(Board));
 
 
+        }
+
+        private Piece[,] ConvertBoardToMatrix(ObservableCollection<ObservableCollection<Piece>> board)
+        {
+            int rows = board.Count;
+            int columns = board.FirstOrDefault()?.Count ?? 0;
+
+            Piece[,] matrix = new Piece[rows, columns];
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    matrix[i, j] = board[i][j];
+                }
+            }
+
+            return matrix;
+        }
+
+
+        public void SaveClick()
+        {
+            Utility.SaveGame(Board);
+
+        }
+
+        public void Load_Click()
+        {
+            Board = Utility.LoadGame();
         }
 
 

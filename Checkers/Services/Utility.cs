@@ -1,7 +1,10 @@
 ﻿using Checkers.Models;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,39 +15,6 @@ namespace Checkers.Services
 {
     internal class Utility
     {
-
-        public static Piece currentsq { get; set; }
-        private static Dictionary<Piece, Piece> neighbours = new Dictionary<Piece, Piece>();
-
-        private static int collectedRedPieces = 0;
-        private static int collectedWhitePieces = 0;
-
-
-        public static Dictionary<Piece, Piece> Neighbours
-        {
-            get
-            {
-                return neighbours;
-            }
-            set
-            {
-                neighbours = value;
-            }
-        }
-
-        public static int CollectedWhitePieces
-        {
-            get { return collectedWhitePieces; }
-            set { collectedWhitePieces = value; }
-        }
-
-        public static int CollectedRedPieces
-        {
-            get { return collectedRedPieces; }
-            set { collectedRedPieces = value; }
-        }
-
-
         public static ObservableCollection<ObservableCollection<Piece>> initBoard()
         {
             ObservableCollection<ObservableCollection<Piece>> board = new ObservableCollection<ObservableCollection<Piece>>();
@@ -58,13 +28,13 @@ namespace Checkers.Services
                     if ((row + column) % 2 == 1 && row < 3)
                     {
                         board[row].Add(new Piece(row, column, colorpiece.Red, false));
-                        board[row][column].IsVisible = true; 
+                        board[row][column].IsVisible = true; // Coloane pare sunt vizibile, iar coloane impare sunt invizibile
 
                     }
                     else if (row > 4 && (row + column) % 2 == 1)
                     {
                         board[row].Add(new Piece(row, column, colorpiece.Black, false));
-                        board[row][column].IsVisible = true; 
+                        board[row][column].IsVisible = true; // Coloane pare sunt vizibile, iar coloane impare sunt invizibile
 
                     }
                     else
@@ -79,29 +49,48 @@ namespace Checkers.Services
             return board;
         }
 
-        public static bool isInBounds(int row, int column)
+
+        public static void SaveGame(ObservableCollection<ObservableCollection<Piece>> board)
         {
-            return row >= 0 && column >= 0 && row < 8 && column < 8;
-        }
-        public static void initializeNeighboursToBeChecked(Piece piece, HashSet<Tuple<int, int>> neighboursToCheck)
-        {
-            if (piece.King == true)
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"; // Filtrul de fișiere pentru dialog
+            saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Directorul inițial
+
+            bool? answer = saveDialog.ShowDialog();
+            if (answer == true)
             {
-                neighboursToCheck.Add(new Tuple<int, int>(-1, -1));
-                neighboursToCheck.Add(new Tuple<int, int>(-1, 1));
-                neighboursToCheck.Add(new Tuple<int, int>(1, -1));
-                neighboursToCheck.Add(new Tuple<int, int>(1, 1));
-            }
-            else if (piece.Color == colorpiece.Red)
-            {
-                neighboursToCheck.Add(new Tuple<int, int>(-1, -1));
-                neighboursToCheck.Add(new Tuple<int, int>(-1, 1));
+                var path = saveDialog.FileName;
+                using (var writer = new StreamWriter(path))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(writer, board);
+                    MessageBox.Show("Jocul a fost salvat cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information); // Mesaj de succes
+                }
             }
             else
             {
-                neighboursToCheck.Add(new Tuple<int, int>(1, -1));
-                neighboursToCheck.Add(new Tuple<int, int>(1, 1));
+                MessageBox.Show("Salvarea jocului a fost anulată.", "Anulat", MessageBoxButton.OK, MessageBoxImage.Warning); // Mesaj dacă utilizatorul anulează salvarea
             }
         }
+        public static ObservableCollection<ObservableCollection<Piece>> LoadGame()
+        {
+            ObservableCollection<ObservableCollection<Piece>> board = new ObservableCollection<ObservableCollection<Piece>>();
+
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"; // Filtrul de fișiere pentru dialog
+            bool? answer = openDialog.ShowDialog();
+
+            if (answer == true)
+            {
+                var path = openDialog.FileName;
+                using (var reader = new StreamReader(path))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    board = (ObservableCollection<ObservableCollection<Piece>>)serializer.Deserialize(reader, typeof(ObservableCollection<ObservableCollection<Piece>>));
+                }
+            }
+            return board;
+        }
+
     }
 }

@@ -28,18 +28,15 @@ namespace Checkers.Views
             gm = new GameVM();
             DataContext = gm;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void Save_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var piece = button?.DataContext as Piece;
-            if (piece != null)
-            {
-
-
-                gm.PossibleActions(piece.row, piece.column);
-            }
-
+            gm.SaveClick();
         }
+
+        public void Load_Click(object sender, RoutedEventArgs e)
+        {
+            gm.Load_Click();
+        }
+
     }
 }
