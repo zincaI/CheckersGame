@@ -4,6 +4,10 @@
         xmlns:local="clr-namespace:Checkers.ViewModels" 
         xmlns:converters="clr-namespace:Checkers.Converters">
 
+    <Window.DataContext>
+        <local:GameVM></local:GameVM>
+    </Window.DataContext>
+
     <Window.Resources>
         <Style x:Key="RotundButton" TargetType="Button">
             <Setter Property="Width" Value="60"/>
@@ -32,7 +36,7 @@
     </Window.Resources>
     <Grid Margin="50">
 
-        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Grid.ColumnSpan="8" Source="C:\Users\zinca\OneDrive\Desktop\dummy4\Checkers_8\Checkers\Checkers\altTestDame\altTestDame\bin\Debug\Capture.PNG"/>
+        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Grid.ColumnSpan="8" Source="C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\bin\Debug\Board.PNG"/>
 
 
         <ItemsControl x:Name="ButtonsGrid" VerticalAlignment="Center" HorizontalAlignment="Center" 
@@ -49,23 +53,26 @@
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="77"/>
+                                        <ColumnDefinition Width="90"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="77"/>
+                                        <RowDefinition Height="90"/>
                                     </Grid.RowDefinitions>
 
                                     <Button Style="{StaticResource RotundButton}" 
                                          Visibility="{Binding IsVisible, Converter={StaticResource ParityToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                          Background="{Binding Color, Converter={StaticResource ColorConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                          Command="{Binding DataContext.PieceClickedCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                         CommandParameter="{Binding}" >
+                                         CommandParameter="{Binding }">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{Binding YourImageProperty}" Stretch="Uniform"/>
                                             <TextBlock Text="r" Margin="5" FontWeight="Bold" FontSize="20" Foreground="Aqua"
                                                        Visibility="{Binding King, Converter={StaticResource ParityToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                                         </StackPanel>
+
+
                                     </Button>
+
 
                                 </Grid>
                             </DataTemplate>
@@ -78,8 +85,9 @@
         <Label x:Name="redScoreLabel" Content="{Binding LabelTextRed}" HorizontalAlignment="Left" Margin="1058,114,0,0" VerticalAlignment="Top" Height="28" Width="52"/>
         <Label x:Name="Black_Score" Content="Black Score" Margin="990,540,119,0" VerticalAlignment="Top" Height="30"/>
         <Label x:Name="blackScoreLabel" Content="{Binding LabelTextBlack}" HorizontalAlignment="Left" Margin="1053,542,0,0" VerticalAlignment="Top" Height="28" Width="52"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="169,593,0,0" VerticalAlignment="Top" Click="Save_Click"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="169,593,0,0" VerticalAlignment="Top" Click="Save_Click"/>
         <Button Content="load" HorizontalAlignment="Left" Margin="150,300,0,0" VerticalAlignment="Top" Click="Load_Click"/>
+        <Button Content="Statistics" HorizontalAlignment="Left" Margin="150,228,0,0" VerticalAlignment="Top" Click="Statistics_Click"/>
 
     </Grid>
 </Window>

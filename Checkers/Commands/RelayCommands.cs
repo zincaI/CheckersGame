@@ -1,30 +1,52 @@
 ﻿using System.Windows.Input;
 using System;
+namespace Checkers.Commands
 
-public class RelayCommand : ICommand
 {
-    private readonly Action<object> _execute;
-    private readonly Func<object, bool> _canExecute;
 
-    public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+    public class RelayCommand<T> : ICommand
     {
-        _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-        _canExecute = canExecute;
-    }
+        private Action<T> commandTask;
+        private Predicate<T> canExecuteTask;
 
-    public event EventHandler CanExecuteChanged
-    {
-        add { CommandManager.RequerySuggested += value; }
-        remove { CommandManager.RequerySuggested -= value; }
-    }
+        public RelayCommand(Action<T> workToDo, Predicate<T> canExecute)
+        {
+            commandTask = workToDo;
+            canExecuteTask = canExecute;
+        }
 
-    public bool CanExecute(object parameter)
-    {
-        return _canExecute == null || _canExecute(parameter);
-    }
+        public RelayCommand(Action<T> workToDo)
+            : this(workToDo, DefaultCanExecute)
+        {
+            commandTask = workToDo;
+        }
 
-    public void Execute(object parameter)
-    {
-        _execute(parameter);
+        private static bool DefaultCanExecute(T parameter)
+        {
+            return true;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return canExecuteTask != null && canExecuteTask((T)parameter);
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
+
+        public void Execute(object parameter)
+        {
+            commandTask((T)parameter);
+        }
     }
 }

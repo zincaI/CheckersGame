@@ -11,7 +11,7 @@
         <FontFamily x:Key="JockermanRegular">Tempus Sans ITC</FontFamily>
     </Window.Resources>
     <Window.Background>
-        <ImageBrush ImageSource="C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\Checkers\checkers\WpfApp1\bin\Debug\wood.jpg" Stretch="Fill"/>
+        <ImageBrush ImageSource="C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\bin\Debug\wood.jpg" Stretch="Fill"/>
     </Window.Background>
     <Window.WindowStyle>none</Window.WindowStyle>
     <Border BorderBrush="White" BorderThickness="2" CornerRadius="10">

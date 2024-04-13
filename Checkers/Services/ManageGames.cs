@@ -3,11 +3,13 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Newtonsoft.Json;
 using Formatting = Newtonsoft.Json.Formatting;
+using System.Windows;
+using System.Linq;
 using Checkers.Models;
 
 namespace Checkers.Services
 {
-    internal class ManageJson
+    internal class ManageGames
     {
         public static ObservableCollection<ObservableCollection<Piece>> ReadBoardFromJson()
         {
@@ -40,6 +42,7 @@ namespace Checkers.Services
             {
                 ObservableCollection<ObservableCollection<Piece>> existingBoard = ReadBoardFromJson();
 
+                // Adaugă noile date la cele existente
                 foreach (var row in board)
                 {
                     existingBoard.Add(row);
@@ -73,6 +76,7 @@ namespace Checkers.Services
                     {
                         Console.WriteLine("Invalid matrix index.");
                     }
+                    //MessageBox.Show(matrices[matrixIndex].Count);
 
                 }
 
@@ -81,20 +85,26 @@ namespace Checkers.Services
             {
                 Console.WriteLine("Error reading JSON file: " + ex.Message);
             }
+            // Returnăm o matrice goală dacă nu am putut citi din fișier, dacă fișierul nu conține matrici valide sau dacă indexul matricei este invalid
             return new ObservableCollection<ObservableCollection<Piece>>();
         }
 
-
-        public static (int, int) ReadStatisticsFromJson()
+        public static (int redScore, int maxRed, int blackScore, int maxBlack) ReadStatisticsFromJson()
         {
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Integers.json");
-            (int, int) result = (0, 0);
+            (int redScore, int maxRed, int blackScore, int maxBlack) result = (0, 0, 0, 0);
             try
             {
                 if (File.Exists(filePath))
                 {
                     string json = File.ReadAllText(filePath);
-                    result = JsonConvert.DeserializeObject<(int, int)>(json);
+                    var statistics = JsonConvert.DeserializeObject<dynamic>(json);
+                    result = (
+                        redScore: (int)statistics.RedScore,
+                        maxRed: (int)statistics.MaxRed,
+                        blackScore: (int)statistics.BlackScore,
+                        maxBlack: (int)statistics.MaxBlack
+                    );
                 }
             }
             catch (Exception ex)
@@ -104,12 +114,21 @@ namespace Checkers.Services
             return result;
         }
 
-        public static void WriteStatisticsToJson((int, int) numbers)
+
+        public static void WriteStatisticsToJson((int redScore, int maxRed, int blackScore, int maxBlack) numbers)
         {
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Integers.json");
             try
             {
-                string updatedJson = JsonConvert.SerializeObject(numbers);
+                var statistics = new
+                {
+                    RedScore = numbers.redScore,
+                    MaxRed = numbers.maxRed,
+                    BlackScore = numbers.blackScore,
+                    MaxBlack = numbers.maxBlack
+                };
+
+                string updatedJson = JsonConvert.SerializeObject(statistics, Formatting.Indented);
                 File.WriteAllText(filePath, updatedJson);
             }
             catch (Exception ex)
@@ -117,6 +136,7 @@ namespace Checkers.Services
                 Console.WriteLine("Error writing to JSON file: " + ex.Message);
             }
         }
+
 
     }
 }

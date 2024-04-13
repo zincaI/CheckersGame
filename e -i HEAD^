@@ -1,0 +1,71 @@
+[33mcommit 6703d5f5d8b5971591c17eef34f8e8784dddbed3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Sat Apr 13 15:44:38 2024 +0300
+
+    Functionality for saving statistics
+
+[33mcommit 84ab95610cb48f247b574ad65afdf6b4a6bfcba3[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Wed Apr 10 18:48:06 2024 +0300
+
+    Implemented game end functionality, score management, save game feature, and load game functionality
+
+[33mcommit ae2cbf1d6f9dd7314ae46efca5ab2ebda708748c[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Wed Apr 10 10:42:00 2024 +0300
+
+    Possibility capture piece with a simple jump
+
+[33mcommit 7d4bb1407a2e264903df33df256f70236f04b8ef[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Wed Apr 10 10:11:48 2024 +0300
+
+    Functionality for showing table with pieces and coloring move options.
+
+[33mcommit ceed6d5f706effc3290760405e4f2ed246c91963[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Wed Apr 10 09:16:01 2024 +0300
+
+    Added Utility class
+
+[33mcommit df36bd28805fdd1a4e8c75c2bb7287f76bcdba43[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Wed Apr 10 09:08:35 2024 +0300
+
+    Added classes for base notifications, a piece and game logic
+
+[33mcommit 1dc8579d8437eb71150d70c7200a871d2ef0c6db[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Tue Apr 9 15:11:37 2024 +0300
+
+    Added class for game logic
+
+[33mcommit 88ba496560791a93229356bf8b4efb31fb4fae39[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Tue Apr 9 15:07:43 2024 +0300
+
+    Class for managing commands
+
+[33mcommit 2af575847093d0f7dbb0b5e833e9fd8e005e7539[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Tue Apr 9 15:06:53 2024 +0300
+
+    Folders for organization
+
+[33mcommit 8d7356f23fbcfcce3a8b6fcecbe8a6a955df37dd[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Tue Apr 9 15:00:55 2024 +0300
+
+    Styling Menu
+
+[33mcommit 25637c9268025f8555eaa6d86394191c264b2d98[m
+Author: zincaI <zinca.irina13@gmail.com>
+Date:   Tue Apr 9 14:47:57 2024 +0300
+
+    Menu interface
+
+[33mcommit a89a092ea4061b8fe3f32707a6400845e028b73b[m
+Author: zincaI <147388034+zincaI@users.noreply.github.com>
+Date:   Tue Apr 9 13:33:57 2024 +0300
+
+    Initial commit
