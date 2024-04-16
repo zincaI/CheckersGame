@@ -50,5 +50,7 @@ namespace Checkers.Views
                 gameVM.NewGame();
             }
         }
+
+
     }
 }

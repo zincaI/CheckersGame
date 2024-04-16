@@ -71,5 +71,12 @@ namespace Checkers.Views
                 
             }
         }
+        public void Statistics_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is GameVM gameVM)
+            {
+                gameVM.Statistics_Click();
+            }
+        }
     }
 }

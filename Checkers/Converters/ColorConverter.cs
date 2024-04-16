@@ -21,10 +21,10 @@ namespace Checkers.Converters
                     case colorpiece.Green:
                         return Brushes.Green;
                     default:
-                        return Brushes.Red; // sau orice altă valoare implicită dorită
+                        return Brushes.Red; 
                 }
             }
-            return Brushes.Red; // sau orice altă valoare implicită dorită
+            return Brushes.Red; 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -40,10 +40,10 @@ namespace Checkers.Converters
                     case colorpiece.Green:
                         return Brushes.Green;
                     default:
-                        return Brushes.Red; // sau orice altă valoare implicită dorită
+                        return Brushes.Red; 
                 }
             }
-            return Brushes.Red; // sau orice altă valoare implicită dorită
+            return Brushes.Red; 
         }
     }
 }

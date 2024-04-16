@@ -35,59 +35,56 @@ namespace Checkers.Services
             return board;
         }
 
-        public static void WriteBoardToJson(ObservableCollection<ObservableCollection<Piece>> board)
-        {
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Board.json");
-            try
-            {
-                ObservableCollection<ObservableCollection<Piece>> existingBoard = ReadBoardFromJson();
+        //public static void WriteBoardToJson(ObservableCollection<ObservableCollection<Piece>> board)
+        //{
+        //    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Board.json");
+        //    try
+        //    {
+        //        ObservableCollection<ObservableCollection<Piece>> existingBoard = ReadBoardFromJson();
 
-                // Adaugă noile date la cele existente
-                foreach (var row in board)
-                {
-                    existingBoard.Add(row);
-                }
+        //        foreach (var row in board)
+        //        {
+        //            existingBoard.Add(row);
+        //        }
 
-                string updatedJson = JsonConvert.SerializeObject(existingBoard, Formatting.Indented);
-                File.WriteAllText(filePath, updatedJson);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error writing to JSON file: " + ex.Message);
-            }
-        }
+        //        string updatedJson = JsonConvert.SerializeObject(existingBoard, Formatting.Indented);
+        //        File.WriteAllText(filePath, updatedJson);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Error writing to JSON file: " + ex.Message);
+        //    }
+        //}
 
-        public static ObservableCollection<ObservableCollection<Piece>> GetMatrixFromJson(int matrixIndex)
-        {
-            ObservableCollection<ObservableCollection<Piece>>[] matrices;
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Board.json");
+        //public static ObservableCollection<ObservableCollection<Piece>> GetMatrixFromJson(int matrixIndex)
+        //{
+        //    ObservableCollection<ObservableCollection<Piece>>[] matrices;
+        //    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Board.json");
 
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    string json = File.ReadAllText(filePath);
-                    matrices = JsonConvert.DeserializeObject<ObservableCollection<ObservableCollection<Piece>>[]>(json);
-                    if (matrixIndex >= 0 && matrixIndex < matrices.Length)
-                    {
-                        return matrices[matrixIndex];
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid matrix index.");
-                    }
-                    //MessageBox.Show(matrices[matrixIndex].Count);
+        //    try
+        //    {
+        //        if (File.Exists(filePath))
+        //        {
+        //            string json = File.ReadAllText(filePath);
+        //            matrices = JsonConvert.DeserializeObject<ObservableCollection<ObservableCollection<Piece>>[]>(json);
+        //            if (matrixIndex >= 0 && matrixIndex < matrices.Length)
+        //            {
+        //                return matrices[matrixIndex];
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine("Invalid matrix index.");
+        //            }
 
-                }
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error reading JSON file: " + ex.Message);
-            }
-            // Returnăm o matrice goală dacă nu am putut citi din fișier, dacă fișierul nu conține matrici valide sau dacă indexul matricei este invalid
-            return new ObservableCollection<ObservableCollection<Piece>>();
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Error reading JSON file: " + ex.Message);
+        //    }
+        //    return new ObservableCollection<ObservableCollection<Piece>>();
+        //}
 
         public static (int redScore, int maxRed, int blackScore, int maxBlack) ReadStatisticsFromJson()
         {
@@ -157,39 +154,34 @@ namespace Checkers.Services
             }
         }
 
-        public static (ObservableCollection<ObservableCollection<Piece>>, string) ReadBoardAndExtraDataFromJson()
-        {
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "GameData.json");
-            (ObservableCollection<ObservableCollection<Piece>>, string) result = (new ObservableCollection<ObservableCollection<Piece>>(), "");
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    string json = File.ReadAllText(filePath);
-                    var gameData = JsonConvert.DeserializeObject<RoundInfo>(json);
-                    result = (gameData.Board, gameData.MultipleJumpsAllowed);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error reading JSON file: " + ex.Message);
-            }
-            return result;
-        }
+        //public static (ObservableCollection<ObservableCollection<Piece>>, string) ReadBoardAndExtraDataFromJson()
+        //{
+        //    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "GameData.json");
+        //    (ObservableCollection<ObservableCollection<Piece>>, string) result = (new ObservableCollection<ObservableCollection<Piece>>(), "");
+        //    try
+        //    {
+        //        if (File.Exists(filePath))
+        //        {
+        //            string json = File.ReadAllText(filePath);
+        //            var gameData = JsonConvert.DeserializeObject<RoundInfo>(json);
+        //            result = (gameData.Board, gameData.MultipleJumpsAllowed);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Error reading JSON file: " + ex.Message);
+        //    }
+        //    return result;
+        //}
 
 
 
         public static void EnterInFile(bool parameter)
         {
             string continut = parameter.ToString();
-
-            // Definirea căii către fișierul în care vrei să salvezi șirul
             string numeFisier = "mutiple.txt";
-
-            // Crearea și deschiderea fișierului pentru scriere
             using (StreamWriter sw = new StreamWriter(numeFisier))
             {
-                // Scrierea șirului în fișier
                 sw.Write(continut);
             }
 
@@ -205,12 +197,9 @@ namespace Checkers.Services
                 // Verificăm dacă fișierul există
                 if (File.Exists(numeFisier))
                 {
-                    // Citim conținutul fișierului
                     using (StreamReader sr = new StreamReader(numeFisier))
                     {
                         string continut = sr.ReadToEnd();
-
-                        // Convertim șirul citit într-o valoare booleană
                         rezultat = bool.Parse(continut);
                     }
                 }

@@ -19,45 +19,12 @@ namespace Checkers.ViewModels
 
         private int red;
         private int black;
-
         private bool multiplejumps;
         private bool block = true;
 
-        public bool Block
-        {
-            get { return block; }
-            set
-            {
-                if (block != value)
-                {
-                    block = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool Multiplejumps
-        {
-            get { return multiplejumps; }
-            set
-            {
-                if (multiplejumps != value)
-                {
-                    multiplejumps = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-
-
-        public GameVM()
-        {
-            gameLogic = new GameLogic(this);
-
-        }
-        private string labelTurn = "Black  player to move";
-
+        private ICommand pieceClicked;
         public string LabelTurn
         {
             get { return labelTurn; }
@@ -96,7 +63,43 @@ namespace Checkers.ViewModels
             }
         }
 
-        private ICommand pieceClicked;
+        public bool Block
+        {
+            get { return block; }
+            set
+            {
+                if (block != value)
+                {
+                    block = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool Multiplejumps
+        {
+            get { return multiplejumps; }
+            set
+            {
+                if (multiplejumps != value)
+                {
+                    multiplejumps = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+
+        public GameVM()
+        {
+            gameLogic = new GameLogic(this);
+
+        }
+        private string labelTurn = "Black  player to move";
+
+    
+
         public ICommand PieceClickedCommand
         {
 
@@ -125,7 +128,6 @@ namespace Checkers.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -142,6 +144,13 @@ namespace Checkers.ViewModels
             {
                 Utility.SaveGame(Board, multiplejumps.ToString(), "black");
             }
+
+        }
+
+        public void Statistics_Click()
+        {
+            (int scoreRed, int maxRed, int scoreBlack, int maxBlack) = ManageGames.ReadStatisticsFromJson();
+            MessageBox.Show("Score red:" + scoreRed + "\nmaxRed:" + maxRed + "\nscoreBlack" + scoreBlack + "\nmaxBlack:" + maxBlack);
 
         }
 
@@ -180,17 +189,9 @@ namespace Checkers.ViewModels
             
         }
 
-        public void Statistics_Click()
-        {
-            (int scoreRed, int maxRed, int scoreBlack, int maxBlack) = ManageGames.ReadStatisticsFromJson();
-            MessageBox.Show("Score red:" + scoreRed + "\nmaxRed:" + maxRed + "\nscoreBlack" + scoreBlack + "\nmaxBlack:" + maxBlack);
-
-        }
-
         public void NewGame()
         {
-            // this = gameVM;
-
+            
             Block = true;
             LabelTurn = "black";
             gameLogic.playerTurn = colorpiece.Black;

@@ -1,6 +1,0 @@
-C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\Checkers2\obj\Debug\Checkers2.csproj.AssemblyReference.cache
-C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\Checkers2\obj\Debug\Views\Game.g.cs
-C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\Checkers2\obj\Debug\Views\MainWindow.g.cs
-C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\Checkers2\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\Checkers2\obj\Debug\Checkers2_MarkupCompile.cache
-C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\Checkers2\obj\Debug\Checkers2_MarkupCompile.lref

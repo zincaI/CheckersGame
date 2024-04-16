@@ -36,6 +36,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
 
 
             </Grid.RowDefinitions>
@@ -47,11 +48,11 @@
             <Button Name="ShowCheckbox" Grid.Row="3" FontFamily="{StaticResource TempusSansITCFont}" Content="Allow Multiple Jump" Click="Show_Checkbox"/>
             <CheckBox Name="MultipleMoves" Grid.Row="3" Content="MultipleMoves" IsChecked="{Binding Multiplejumps, Mode=TwoWay}" IsEnabled="{Binding Block}" Margin="238,15,48,10" Visibility="Collapsed"/>
             <Button Name="FinishedChoosing" Grid.Row="3" FontFamily="{StaticResource TempusSansITCFont}" Content="Finished choosing" Click="Finished_Choosing_Click" Margin="64,8,232,12" Visibility="Collapsed"/>
+            <Button Grid.Row="4" FontFamily="{StaticResource TempusSansITCFont}" Content="Statistics" Click="Statistics_Click"/>
 
+            <Button Grid.Row="5" FontFamily="{StaticResource TempusSansITCFont}" Content="About" Click="About_Click"/>
 
-            <Button Grid.Row="4" FontFamily="{StaticResource TempusSansITCFont}" Content="Statistics" Click="About_Click"/>
-
-            <Button Grid.Row="5" FontFamily="{StaticResource TempusSansITCFont}" Content="Exit" Click="CloseButton_Click"/>
+            <Button Grid.Row="6" FontFamily="{StaticResource TempusSansITCFont}" Content="Exit" Click="CloseButton_Click"/>
 
         </Grid>
     </Border>

@@ -5,12 +5,14 @@ namespace Checkers.Models
 {
     class Piece : BaseNotification
     {
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         private colorpiece color;
         bool king = false;
         public int row { get; set; }
-
         public int column { get; set; }
+
+        private bool _isVisible;
 
         private SolidColorBrush _textColor;
 
@@ -27,7 +29,6 @@ namespace Checkers.Models
             }
         }
 
-        private bool _isVisible;
 
 
         public bool IsVisible
@@ -38,7 +39,6 @@ namespace Checkers.Models
                 if (_isVisible != value)
                 {
                     _isVisible = value;
-                    //OnPropertyChanged(nameof(IsVisible));
                     OnPropertyChanged("IsVisible");
 
                 }
@@ -52,19 +52,10 @@ namespace Checkers.Models
                 if (color != value)
                 {
                     color = value;
-                    //OnPropertyChanged(nameof(IsVisible));
                     OnPropertyChanged("Color");
                 }
             }
         }
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //protected virtual void OnPropertyChanged(string propertyName)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
-
         public Piece(int row, int column, colorpiece v1, bool v2)
         {
             this.row = row;
@@ -85,7 +76,6 @@ namespace Checkers.Models
             }
         }
 
-        public new event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
         {

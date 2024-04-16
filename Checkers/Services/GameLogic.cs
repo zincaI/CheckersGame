@@ -20,7 +20,6 @@ namespace Checkers.Services
         public GameLogic(GameVM gamevm)
         {
             this.vm = gamevm;
-            //vm.Board = new ObservableCollection<ObservableCollection<Piece>>();
 
             vm.Board = Utility.initBoard();
             vm.Multiplejumps = ManageGames.ReadFromFileAndConvertToBool("mutiple.txt");
@@ -311,87 +310,87 @@ namespace Checkers.Services
             }
 
         }
-        public void PossibleActions(int row, int colomn)
+        public void PossibleActions(int row, int column)
         {
 
-            if (vm.Board[row][colomn].Color == colorpiece.Black)
+            if (vm.Board[row][column].Color == colorpiece.Black)
             {
-                if (vm.Board[row][colomn].King == false)
+                if (vm.Board[row][column].King == false)
                 {
                     if (row != 0)
                     {
-                        if (colomn != 0 && colomn != 7)
+                        if (column != 0 && column != 7)
                         {
-                            if (vm.Board[row - 1][colomn - 1].IsVisible != true)
+                            if (vm.Board[row - 1][column - 1].IsVisible != true)
                             {
-                                vm.Board[row - 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn - 1].IsVisible = true;
+                                vm.Board[row - 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column - 1].IsVisible = true;
 
                             }
                             else
                             {
-                                if (row >= 2 && colomn >= 2)
-                                    if (vm.Board[row - 2][colomn - 2].IsVisible != true && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color)
+                                if (row >= 2 && column >= 2)
+                                    if (vm.Board[row - 2][column - 2].IsVisible != true && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color)
                                     {
-                                        vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column - 2].IsVisible = true;
 
                                     }
                             }
-                            if (vm.Board[row - 1][colomn + 1].IsVisible != true)
+                            if (vm.Board[row - 1][column + 1].IsVisible != true)
                             {
                                 {
 
-                                    vm.Board[row - 1][colomn + 1].Color = colorpiece.Green;
-                                    vm.Board[row - 1][colomn + 1].IsVisible = true;
+                                    vm.Board[row - 1][column + 1].Color = colorpiece.Green;
+                                    vm.Board[row - 1][column + 1].IsVisible = true;
                                 }
 
                             }
                             else
                             {
-                                if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn + 2].IsVisible != true && vm.Board[row - 2][colomn + 2].Color != vm.Board[row][colomn].Color)
+                                if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column + 2].IsVisible != true && vm.Board[row - 2][column + 2].Color != vm.Board[row][column].Color)
                                     {
-                                        vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column + 2].IsVisible = true;
 
                                     }
                             }
                         }
-                        else if (colomn == 7)
+                        else if (column == 7)
                         {
-                            if (vm.Board[row - 1][colomn - 1].IsVisible != true)
+                            if (vm.Board[row - 1][column - 1].IsVisible != true)
                             {
-                                vm.Board[row - 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn - 1].IsVisible = true;
+                                vm.Board[row - 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column - 1].IsVisible = true;
 
                             }
                             else
                             {
-                                if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                                if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column - 2].IsVisible = true;
 
                                     }
                             }
 
                         }
-                        else if (colomn == 0)
+                        else if (column == 0)
                         {
-                            if (vm.Board[row - 1][colomn + 1].IsVisible != true)
+                            if (vm.Board[row - 1][column + 1].IsVisible != true)
                             {
-                                vm.Board[row - 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn + 1].IsVisible = true;
+                                vm.Board[row - 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                                if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column + 2].IsVisible = true;
 
                                     }
                             }
@@ -406,71 +405,71 @@ namespace Checkers.Services
                 {
 
 
-                    if (colomn != 0 && colomn != 7)
+                    if (column != 0 && column != 7)
                     {
                         if (row != 0)
-                            if (vm.Board[row - 1][colomn - 1].IsVisible != true)
+                            if (vm.Board[row - 1][column - 1].IsVisible != true)
                             {
-                                vm.Board[row - 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn - 1].IsVisible = true;
+                                vm.Board[row - 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                                if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column - 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 0)
-                            if (vm.Board[row - 1][colomn + 1].IsVisible != true && row != 0)
+                            if (vm.Board[row - 1][column + 1].IsVisible != true && row != 0)
                             {
-                                vm.Board[row - 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn + 1].IsVisible = true;
+                                vm.Board[row - 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                                if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column + 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 7)
 
-                            if (vm.Board[row + 1][colomn - 1].IsVisible != true && row != 7)
+                            if (vm.Board[row + 1][column - 1].IsVisible != true && row != 7)
                             {
-                                vm.Board[row + 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn - 1].IsVisible = true;
+                                vm.Board[row + 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                                if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column - 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 7)
 
-                            if (vm.Board[row + 1][colomn + 1].IsVisible != true && row != 7)
+                            if (vm.Board[row + 1][column + 1].IsVisible != true && row != 7)
                             {
-                                vm.Board[row + 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn + 1].IsVisible = true;
+                                vm.Board[row + 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                                if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column + 2].IsVisible = true;
 
                                     }
                             }
@@ -479,79 +478,79 @@ namespace Checkers.Services
 
                     }
 
-                    else if (colomn == 7)
+                    else if (column == 7)
                     {
                         if (row != 0)
 
-                            if (vm.Board[row - 1][colomn - 1].IsVisible != true && row != 0)
+                            if (vm.Board[row - 1][column - 1].IsVisible != true && row != 0)
                             {
-                                vm.Board[row - 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn - 1].IsVisible = true;
+                                vm.Board[row - 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                                if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column - 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 7)
 
-                            if (vm.Board[row + 1][colomn - 1].IsVisible != true && row != 7)
+                            if (vm.Board[row + 1][column - 1].IsVisible != true && row != 7)
                             {
 
-                                vm.Board[row + 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn - 1].IsVisible = true;
+                                vm.Board[row + 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                                if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column - 2].IsVisible = true;
 
                                     }
                             }
 
 
                     }
-                    else if (colomn == 0)
+                    else if (column == 0)
                     {
                         if (row != 0)
 
-                            if (vm.Board[row - 1][colomn + 1].IsVisible != true && row != 0)
+                            if (vm.Board[row - 1][column + 1].IsVisible != true && row != 0)
                             {
-                                vm.Board[row - 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn + 1].IsVisible = true;
+                                vm.Board[row - 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                                if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column + 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 7)
 
-                            if (vm.Board[row + 1][colomn + 1].IsVisible != true && row != 7)
+                            if (vm.Board[row + 1][column + 1].IsVisible != true && row != 7)
                             {
-                                vm.Board[row + 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn + 1].IsVisible = true;
+                                vm.Board[row + 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                                if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column + 2].IsVisible = true;
 
                                     }
                             }
@@ -561,84 +560,84 @@ namespace Checkers.Services
                 }
 
             }
-            else if (vm.Board[row][colomn].Color == colorpiece.Red)
+            else if (vm.Board[row][column].Color == colorpiece.Red)
             {
 
-                if (vm.Board[row][colomn].King == false)
+                if (vm.Board[row][column].King == false)
                 {
                     if (row != 7)
                     {
-                        if (colomn != 0 && colomn != 7)
+                        if (column != 0 && column != 7)
                         {
-                            if (vm.Board[row + 1][colomn - 1].IsVisible != true)
+                            if (vm.Board[row + 1][column - 1].IsVisible != true)
                             {
 
-                                vm.Board[row + 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn - 1].IsVisible = true;
+                                vm.Board[row + 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                                if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column - 2].IsVisible = true;
 
                                     }
                             }
-                            if (vm.Board[row + 1][colomn + 1].IsVisible != true)
+                            if (vm.Board[row + 1][column + 1].IsVisible != true)
                             {
 
-                                vm.Board[row + 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn + 1].IsVisible = true;
+                                vm.Board[row + 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                                if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column + 2].IsVisible = true;
 
                                     }
                             }
                         }
-                        else if (colomn == 7)
+                        else if (column == 7)
                         {
-                            if (vm.Board[row + 1][colomn - 1].IsVisible != true)
+                            if (vm.Board[row + 1][column - 1].IsVisible != true)
                             {
 
-                                vm.Board[row + 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn - 1].IsVisible = true;
+                                vm.Board[row + 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                                if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column - 2].IsVisible = true;
 
                                     }
                             }
 
 
                         }
-                        else if (colomn == 0)
+                        else if (column == 0)
                         {
-                            if (vm.Board[row + 1][colomn + 1].IsVisible != true)
+                            if (vm.Board[row + 1][column + 1].IsVisible != true)
                             {
 
-                                vm.Board[row + 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn + 1].IsVisible = true;
+                                vm.Board[row + 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                                if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column + 2].IsVisible = true;
 
                                     }
                             }
@@ -650,114 +649,114 @@ namespace Checkers.Services
                 else
                 {
 
-                    if (colomn != 0 && colomn != 7)
+                    if (column != 0 && column != 7)
                     {
                         if (row != 0)
 
-                            if (vm.Board[row - 1][colomn - 1].IsVisible != true && row != 0)
+                            if (vm.Board[row - 1][column - 1].IsVisible != true && row != 0)
                             {
-                                vm.Board[row - 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn - 1].IsVisible = true;
+                                vm.Board[row - 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                                if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column - 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 0)
 
-                            if (vm.Board[row - 1][colomn + 1].IsVisible != true && row != 0)
+                            if (vm.Board[row - 1][column + 1].IsVisible != true && row != 0)
                             {
-                                vm.Board[row - 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn + 1].IsVisible = true;
+                                vm.Board[row - 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                                if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column + 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 7)
 
-                            if (vm.Board[row + 1][colomn - 1].IsVisible != true && row != 7)
+                            if (vm.Board[row + 1][column - 1].IsVisible != true && row != 7)
                             {
-                                vm.Board[row + 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn - 1].IsVisible = true;
+                                vm.Board[row + 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                                if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column - 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 7)
 
-                            if (vm.Board[row + 1][colomn + 1].IsVisible != true && row != 7)
+                            if (vm.Board[row + 1][column + 1].IsVisible != true && row != 7)
                             {
-                                vm.Board[row + 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn + 1].IsVisible = true;
+                                vm.Board[row + 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                                if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column + 2].IsVisible = true;
 
                                     }
                             }
 
 
                     }
-                    else if (colomn == 7)
+                    else if (column == 7)
                     {
                         if (row != 0)
 
-                            if (vm.Board[row - 1][colomn - 1].IsVisible != true && row != 0)
+                            if (vm.Board[row - 1][column - 1].IsVisible != true && row != 0)
                             {
 
-                                vm.Board[row - 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn - 1].IsVisible = true;
+                                vm.Board[row - 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                                if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column - 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 7)
 
-                            if (vm.Board[row + 1][colomn - 1].IsVisible != true && row != 7)
+                            if (vm.Board[row + 1][column - 1].IsVisible != true && row != 7)
                             {
 
-                                vm.Board[row + 1][colomn - 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn - 1].IsVisible = true;
+                                vm.Board[row + 1][column - 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column - 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                                if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column - 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                        vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column - 2].IsVisible = true;
 
                                     }
                             }
@@ -765,39 +764,39 @@ namespace Checkers.Services
 
 
                     }
-                    else if (colomn == 0)
+                    else if (column == 0)
                     {
                         if (row != 0)
 
-                            if (vm.Board[row - 1][colomn + 1].IsVisible != true && row != 0)
+                            if (vm.Board[row - 1][column + 1].IsVisible != true && row != 0)
                             {
-                                vm.Board[row - 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row - 1][colomn + 1].IsVisible = true;
+                                vm.Board[row - 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row - 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                                if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row - 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row - 2][column + 2].IsVisible = true;
 
                                     }
                             }
                         if (row != 7)
 
-                            if (vm.Board[row + 1][colomn + 1].IsVisible != true && row != 7)
+                            if (vm.Board[row + 1][column + 1].IsVisible != true && row != 7)
                             {
-                                vm.Board[row + 1][colomn + 1].Color = colorpiece.Green;
-                                vm.Board[row + 1][colomn + 1].IsVisible = true;
+                                vm.Board[row + 1][column + 1].Color = colorpiece.Green;
+                                vm.Board[row + 1][column + 1].IsVisible = true;
                             }
                             else
                             {
-                                if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color)
-                                    if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                                if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color)
+                                    if (vm.Board[row + 2][column + 2].IsVisible != true)
                                     {
-                                        vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                        vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                        vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                        vm.Board[row + 2][column + 2].IsVisible = true;
 
 
                                     }
@@ -810,71 +809,61 @@ namespace Checkers.Services
                 }
 
             }
-
-            //OnPropertyChanged(nameof(vm.Board));
-            //vm.Board = vm.Board;
-
 
 
         }
 
-
-
-
-
-
-
-        public void MultipleJumpsActions(int row, int colomn)
+        public void MultipleJumpsActions(int row, int column)
         {
 
-            if (vm.Board[row][colomn].Color == colorpiece.Black)
+            if (vm.Board[row][column].Color == colorpiece.Black)
             {
-                if (vm.Board[row][colomn].King == false)
+                if (vm.Board[row][column].King == false)
                 {
                     if (row != 0)
                     {
-                        if (colomn != 0 && colomn != 7)
+                        if (column != 0 && column != 7)
                         {
 
-                            if (row >= 2 && colomn >= 2)
-                                if (vm.Board[row - 2][colomn - 2].IsVisible != true && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn - 1].Color != colorpiece.Green)
+                            if (row >= 2 && column >= 2)
+                                if (vm.Board[row - 2][column - 2].IsVisible != true && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column - 1].Color != colorpiece.Green)
                                 {
-                                    vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column - 2].IsVisible = true;
 
                                 }
 
 
-                            if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn + 2].IsVisible != true && vm.Board[row - 2][colomn + 2].Color != vm.Board[row][colomn].Color)
+                            if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column + 2].IsVisible != true && vm.Board[row - 2][column + 2].Color != vm.Board[row][column].Color)
                                 {
-                                    vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column + 2].IsVisible = true;
 
                                 }
 
                         }
-                        else if (colomn == 7)
+                        else if (column == 7)
                         {
 
-                            if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                            if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column - 2].IsVisible = true;
 
                                 }
 
 
                         }
-                        else if (colomn == 0)
+                        else if (column == 0)
                         {
 
-                            if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                            if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column + 2].IsVisible = true;
 
                                 }
 
@@ -889,47 +878,47 @@ namespace Checkers.Services
                 {
 
 
-                    if (colomn != 0 && colomn != 7)
+                    if (column != 0 && column != 7)
                     {
                         if (row != 0)
 
-                            if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                            if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column - 2].IsVisible = true;
 
                                 }
 
                         if (row != 0)
 
-                            if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                            if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column + 2].IsVisible = true;
 
                                 }
 
                         if (row != 7)
 
 
-                            if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                            if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column - 2].IsVisible = true;
 
                                 }
 
                         if (row != 7)
 
 
-                            if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                            if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column + 2].IsVisible = true;
 
                                 }
 
@@ -938,51 +927,51 @@ namespace Checkers.Services
 
                     }
 
-                    else if (colomn == 7)
+                    else if (column == 7)
                     {
                         if (row != 0)
 
 
-                            if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                            if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column - 2].IsVisible = true;
 
                                 }
 
                         if (row != 7)
 
-                            if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                            if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column - 2].IsVisible = true;
 
                                 }
 
 
 
                     }
-                    else if (colomn == 0)
+                    else if (column == 0)
                     {
                         if (row != 0)
 
-                            if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                            if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column + 2].IsVisible = true;
 
                                 }
 
                         if (row != 7)
 
-                            if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                            if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column + 2].IsVisible = true;
 
                                 }
 
@@ -992,57 +981,57 @@ namespace Checkers.Services
                 }
 
             }
-            else if (vm.Board[row][colomn].Color == colorpiece.Red)
+            else if (vm.Board[row][column].Color == colorpiece.Red)
             {
 
-                if (vm.Board[row][colomn].King == false)
+                if (vm.Board[row][column].King == false)
                 {
                     if (row != 7)
                     {
-                        if (colomn != 0 && colomn != 7)
+                        if (column != 0 && column != 7)
                         {
 
-                            if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                            if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column - 2].IsVisible = true;
 
                                 }
 
 
-                            if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                            if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column + 2].IsVisible = true;
 
                                 }
 
                         }
-                        else if (colomn == 7)
+                        else if (column == 7)
                         {
 
-                            if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                            if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column - 2].IsVisible = true;
 
                                 }
 
 
 
                         }
-                        else if (colomn == 0)
+                        else if (column == 0)
                         {
 
 
-                            if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                            if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column + 2].IsVisible = true;
 
                                 }
 
@@ -1054,16 +1043,16 @@ namespace Checkers.Services
                 else
                 {
 
-                    if (colomn != 0 && colomn != 7)
+                    if (column != 0 && column != 7)
                     {
                         if (row != 0)
 
 
-                            if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                            if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column - 2].IsVisible = true;
 
                                 }
 
@@ -1071,59 +1060,59 @@ namespace Checkers.Services
 
 
 
-                            if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                            if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column + 2].IsVisible = true;
 
                                 }
 
                         if (row != 7)
 
-                            if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                            if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column - 2].IsVisible = true;
 
                                 }
 
                         if (row != 7)
 
 
-                            if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                            if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column + 2].IsVisible = true;
 
                                 }
 
 
 
                     }
-                    else if (colomn == 7)
+                    else if (column == 7)
                     {
                         if (row != 0)
 
 
-                            if (row >= 2 && colomn >= 2 && vm.Board[row - 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn - 2].IsVisible != true)
+                            if (row >= 2 && column >= 2 && vm.Board[row - 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row - 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column - 2].IsVisible = true;
 
                                 }
 
                         if (row != 7)
 
 
-                            if (row < 6 && colomn >= 2 && vm.Board[row + 1][colomn - 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn - 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn - 2].IsVisible != true)
+                            if (row < 6 && column >= 2 && vm.Board[row + 1][column - 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column - 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column - 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn - 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn - 2].IsVisible = true;
+                                    vm.Board[row + 2][column - 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column - 2].IsVisible = true;
 
                                 }
 
@@ -1131,27 +1120,27 @@ namespace Checkers.Services
 
 
                     }
-                    else if (colomn == 0)
+                    else if (column == 0)
                     {
                         if (row != 0)
 
 
-                            if (row >= 2 && colomn < 6 && vm.Board[row - 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row - 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row - 2][colomn + 2].IsVisible != true)
+                            if (row >= 2 && column < 6 && vm.Board[row - 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row - 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row - 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row - 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row - 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row - 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row - 2][column + 2].IsVisible = true;
 
                                 }
 
                         if (row != 7)
 
 
-                            if (row < 6 && colomn < 6 && vm.Board[row + 1][colomn + 1].Color != vm.Board[row][colomn].Color && vm.Board[row + 1][colomn + 1].Color != colorpiece.Green)
-                                if (vm.Board[row + 2][colomn + 2].IsVisible != true)
+                            if (row < 6 && column < 6 && vm.Board[row + 1][column + 1].Color != vm.Board[row][column].Color && vm.Board[row + 1][column + 1].Color != colorpiece.Green)
+                                if (vm.Board[row + 2][column + 2].IsVisible != true)
                                 {
-                                    vm.Board[row + 2][colomn + 2].Color = colorpiece.Green;
-                                    vm.Board[row + 2][colomn + 2].IsVisible = true;
+                                    vm.Board[row + 2][column + 2].Color = colorpiece.Green;
+                                    vm.Board[row + 2][column + 2].IsVisible = true;
 
                                 }
 
