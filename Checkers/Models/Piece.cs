@@ -80,12 +80,13 @@ namespace Checkers.Models
             set
             {
                 king = value;
-                NotifyPropertyChanged("King");
+                //NotifyPropertyChanged("King");
                 OnPropertyChanged("King");
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

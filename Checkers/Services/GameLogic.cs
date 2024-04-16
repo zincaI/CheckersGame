@@ -12,8 +12,8 @@ namespace Checkers.Services
 
         Piece lastPiece;
 
-        private int redScore = 0;
-        private int blackScore = 0;
+        public int redScore;
+        public int blackScore;
 
         public colorpiece playerTurn = colorpiece.Black;
 
@@ -24,6 +24,8 @@ namespace Checkers.Services
 
             vm.Board = Utility.initBoard();
             vm.Multiplejumps = ManageGames.ReadFromFileAndConvertToBool("mutiple.txt");
+            redScore =gamevm.LabelTextRed;
+            blackScore =gamevm.LabelTextBlack;
         }
 
         public void PieceClicked(object parameter)

@@ -25,13 +25,13 @@ namespace Checkers.Services
                     if ((row + column) % 2 == 1 && row < 3)
                     {
                         board[row].Add(new Piece(row, column, colorpiece.Red, false));
-                        board[row][column].IsVisible = true; // Coloane pare sunt vizibile, iar coloane impare sunt invizibile
+                        board[row][column].IsVisible = true; 
 
                     }
                     else if (row > 4 && (row + column) % 2 == 1)
                     {
                         board[row].Add(new Piece(row, column, colorpiece.Black, false));
-                        board[row][column].IsVisible = true; // Coloane pare sunt vizibile, iar coloane impare sunt invizibile
+                        board[row][column].IsVisible = true; 
 
                     }
                     else
@@ -50,8 +50,8 @@ namespace Checkers.Services
         public static void SaveGame(ObservableCollection<ObservableCollection<Piece>> board, string extraData, string turnData)
         {
             SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"; // Filtrul de fișiere pentru dialog
-            saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Directorul inițial
+            saveDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
+            saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); 
 
             if (saveDialog.ShowDialog() == true)
             {
@@ -62,7 +62,7 @@ namespace Checkers.Services
                     {
                         Board = board,
                         MultipleJumpsAllowed = extraData,
-                        Turn = turnData
+                        TurnData = turnData
 
                     };
 
@@ -70,7 +70,7 @@ namespace Checkers.Services
                     {
                         JsonSerializer serializer = new JsonSerializer();
                         serializer.Serialize(writer, gameData);
-                        MessageBox.Show("Jocul a fost salvat cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information); // Mesaj de succes
+                        MessageBox.Show("Jocul a fost salvat cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information); 
                     }
                 }
                 catch (Exception ex)
@@ -80,7 +80,7 @@ namespace Checkers.Services
             }
             else
             {
-                MessageBox.Show("Salvarea jocului a fost anulată.", "Anulat", MessageBoxButton.OK, MessageBoxImage.Warning); // Mesaj dacă utilizatorul anulează salvarea
+                MessageBox.Show("Salvarea jocului a fost anulată.", "Anulat", MessageBoxButton.OK, MessageBoxImage.Warning); 
             }
         }
 
@@ -92,7 +92,7 @@ namespace Checkers.Services
 
 
             OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"; // Filtrul de fișiere pentru dialog
+            openDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
 
             if (openDialog.ShowDialog() == true)
             {
@@ -105,7 +105,7 @@ namespace Checkers.Services
                         var gameData = (RoundInfo)serializer.Deserialize(reader, typeof(RoundInfo));
                         board = gameData.Board;
                         extraData = gameData.MultipleJumpsAllowed;
-                        turnData = gameData.Turn;
+                        turnData = gameData.TurnData;
                     }
                 }
                 catch (Exception ex)
@@ -116,25 +116,7 @@ namespace Checkers.Services
 
             return (board, extraData, turnData);
         }
-        //public static ObservableCollection<ObservableCollection<Piece>> LoadGame()
-        //{
-        //    ObservableCollection<ObservableCollection<Piece>> board = new ObservableCollection<ObservableCollection<Piece>>();
 
-        //    OpenFileDialog openDialog = new OpenFileDialog();
-        //    openDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"; // Filtrul de fișiere pentru dialog
-        //    bool? answer = openDialog.ShowDialog();
-
-        //    if (answer == true)
-        //    {
-        //        var path = openDialog.FileName;
-        //        using (var reader = new StreamReader(path))
-        //        {
-        //            JsonSerializer serializer = new JsonSerializer();
-        //            board = (ObservableCollection<ObservableCollection<Piece>>)serializer.Deserialize(reader, typeof(ObservableCollection<ObservableCollection<Piece>>));
-        //        }
-        //    }
-        //    return board;
-        //}
 
     }
 }

@@ -66,9 +66,6 @@ namespace Checkers.Views
                 
                 Game gameWindow = new Game();
 
-                //gameVM.NewGame();
-                //gameWindow.InitializeComponent();
-                //gameVM.LoadClick();
                 gameWindow.Show();
                 gameWindow.Load_Click(sender,e);
                 

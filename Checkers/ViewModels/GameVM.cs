@@ -53,11 +53,7 @@ namespace Checkers.ViewModels
 
         public GameVM()
         {
-
-            //ObservableCollection<ObservableCollection<Piece>> board = Utility.initBoard();
             gameLogic = new GameLogic(this);
-            //Board = board;
-            //PieceClickedCommand = new RelayCommand(PieceClicked);
 
         }
         private string labelTurn = "Black  player to move";
@@ -129,46 +125,12 @@ namespace Checkers.ViewModels
             }
         }
 
-        //private bool _isVisible;
-
-        //public bool IsVisible
-        //{
-        //    get { return _isVisible; }
-        //    set
-        //    {
-        //        if (_isVisible != value)
-        //        {
-        //            _isVisible = value;
-        //            //OnPropertyChanged(nameof(IsVisible));
-        //        }
-        //    }
-        //}
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
-
-
-
-
-        //private ICommand clickPiece;
-
-        //public ICommand ClickPieceCommand
-        //{
-        //    get
-        //    {
-        //        if(clickPiece==null)
-        //        {
-        //            clickPiece = new RelayCommand();
-        //        }
-        //        return clickPiece;
-        //    }
-        //}
 
         public void SaveClick()
         {
@@ -183,8 +145,9 @@ namespace Checkers.ViewModels
 
         }
 
-        public void LoadClick()
+        public void Load_Click()
         {
+            //this = gameVM;
             string aux, turn;
             (Board, aux, turn) = Utility.LoadGame();
             Multiplejumps = Convert.ToBoolean(aux);
@@ -199,6 +162,22 @@ namespace Checkers.ViewModels
                 LabelTurn = "black";
 
             }
+            int red = 0;
+            int black = 0;
+            for (int i = 0; i < Board.Count; i++)
+                for (int j = 0; j < Board[i].Count; j++)
+                    if (Board[i][j].Color == colorpiece.Red)
+                    {
+                        red++;
+                    }
+                    else if (Board[i][j].Color == colorpiece.Black)
+                    {
+                        black++;
+                    }
+            LabelTextBlack = 12 - red; LabelTextRed=12-black;
+            gameLogic.redScore = LabelTextRed;
+            gameLogic.blackScore= LabelTextBlack;
+            
         }
 
         public void Statistics_Click()
@@ -210,6 +189,8 @@ namespace Checkers.ViewModels
 
         public void NewGame()
         {
+            // this = gameVM;
+
             Block = true;
             LabelTurn = "black";
             gameLogic.playerTurn = colorpiece.Black;

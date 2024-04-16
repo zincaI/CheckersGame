@@ -21,12 +21,10 @@ namespace Checkers.Views
     /// </summary>
     public partial class Game : Window
     {
-        // GameVM gm;
+
         public Game()
         {
             InitializeComponent();
-            //gm = new GameVM();
-            //DataContext = gm;
         }
         public void Save_Click(object sender, RoutedEventArgs e)
         {
@@ -40,9 +38,8 @@ namespace Checkers.Views
         {
             if (DataContext is GameVM gameVM)
             {
-                gameVM.NewGame();
 
-                gameVM.LoadClick();
+                gameVM.Load_Click();
             }
         }
 

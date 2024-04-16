@@ -12,7 +12,7 @@ namespace Checkers.Models
     {
         public ObservableCollection<ObservableCollection<Piece>> Board { get; set; }
         public string MultipleJumpsAllowed { get; set; }
-        public string Turn { get; set; }
+        public string TurnData { get; set; }
 
     }
 }

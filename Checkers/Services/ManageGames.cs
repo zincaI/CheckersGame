@@ -139,7 +139,7 @@ namespace Checkers.Services
 
         public static void WriteBoardAndExtraDataToJson(ObservableCollection<ObservableCollection<Piece>> board, string extraData)
         {
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "GameData.json");
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "RoundInfo.json");
             try
             {
                 var gameData = new RoundInfo
