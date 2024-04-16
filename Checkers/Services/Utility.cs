@@ -2,19 +2,16 @@
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace Checkers.Services
 {
     internal class Utility
     {
+
+
         public static ObservableCollection<ObservableCollection<Piece>> initBoard()
         {
             ObservableCollection<ObservableCollection<Piece>> board = new ObservableCollection<ObservableCollection<Piece>>();
@@ -50,21 +47,35 @@ namespace Checkers.Services
         }
 
 
-        public static void SaveGame(ObservableCollection<ObservableCollection<Piece>> board)
+        public static void SaveGame(ObservableCollection<ObservableCollection<Piece>> board, string extraData, string turnData)
         {
             SaveFileDialog saveDialog = new SaveFileDialog();
             saveDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"; // Filtrul de fișiere pentru dialog
             saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Directorul inițial
 
-            bool? answer = saveDialog.ShowDialog();
-            if (answer == true)
+            if (saveDialog.ShowDialog() == true)
             {
-                var path = saveDialog.FileName;
-                using (var writer = new StreamWriter(path))
+                try
                 {
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(writer, board);
-                    MessageBox.Show("Jocul a fost salvat cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information); // Mesaj de succes
+                    var path = saveDialog.FileName;
+                    var gameData = new RoundInfo
+                    {
+                        Board = board,
+                        MultipleJumpsAllowed = extraData,
+                        Turn = turnData
+
+                    };
+
+                    using (var writer = new StreamWriter(path))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        serializer.Serialize(writer, gameData);
+                        MessageBox.Show("Jocul a fost salvat cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information); // Mesaj de succes
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("A apărut o eroare la salvarea jocului: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
@@ -72,25 +83,58 @@ namespace Checkers.Services
                 MessageBox.Show("Salvarea jocului a fost anulată.", "Anulat", MessageBoxButton.OK, MessageBoxImage.Warning); // Mesaj dacă utilizatorul anulează salvarea
             }
         }
-        public static ObservableCollection<ObservableCollection<Piece>> LoadGame()
+
+        public static (ObservableCollection<ObservableCollection<Piece>>, string, string) LoadGame()
         {
             ObservableCollection<ObservableCollection<Piece>> board = new ObservableCollection<ObservableCollection<Piece>>();
+            string extraData = string.Empty;
+            string turnData = string.Empty;
+
 
             OpenFileDialog openDialog = new OpenFileDialog();
             openDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"; // Filtrul de fișiere pentru dialog
-            bool? answer = openDialog.ShowDialog();
 
-            if (answer == true)
+            if (openDialog.ShowDialog() == true)
             {
-                var path = openDialog.FileName;
-                using (var reader = new StreamReader(path))
+                try
                 {
-                    JsonSerializer serializer = new JsonSerializer();
-                    board = (ObservableCollection<ObservableCollection<Piece>>)serializer.Deserialize(reader, typeof(ObservableCollection<ObservableCollection<Piece>>));
+                    var path = openDialog.FileName;
+                    using (var reader = new StreamReader(path))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        var gameData = (RoundInfo)serializer.Deserialize(reader, typeof(RoundInfo));
+                        board = gameData.Board;
+                        extraData = gameData.MultipleJumpsAllowed;
+                        turnData = gameData.Turn;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("A apărut o eroare la încărcarea jocului: " + ex.Message, "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            return board;
+
+            return (board, extraData, turnData);
         }
+        //public static ObservableCollection<ObservableCollection<Piece>> LoadGame()
+        //{
+        //    ObservableCollection<ObservableCollection<Piece>> board = new ObservableCollection<ObservableCollection<Piece>>();
+
+        //    OpenFileDialog openDialog = new OpenFileDialog();
+        //    openDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"; // Filtrul de fișiere pentru dialog
+        //    bool? answer = openDialog.ShowDialog();
+
+        //    if (answer == true)
+        //    {
+        //        var path = openDialog.FileName;
+        //        using (var reader = new StreamReader(path))
+        //        {
+        //            JsonSerializer serializer = new JsonSerializer();
+        //            board = (ObservableCollection<ObservableCollection<Piece>>)serializer.Deserialize(reader, typeof(ObservableCollection<ObservableCollection<Piece>>));
+        //        }
+        //    }
+        //    return board;
+        //}
 
     }
 }

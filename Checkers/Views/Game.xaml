@@ -36,6 +36,24 @@
     </Window.Resources>
     <Grid Margin="50">
 
+        <Menu Margin="0,0,0,521" DockPanel.Dock="Top">
+            <MenuItem Header="Settings">
+                <MenuItem Header="New" Click="New_Click"/>
+                <MenuItem Header="Save" Click="Save_Click"/>
+                <MenuItem Header="Open" Click="Load_Click"/>
+                <MenuItem>
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="MultipleMoves" IsChecked="{Binding Multiplejumps, Mode=TwoWay}" IsEnabled="{Binding Block}"/>
+                        </StackPanel>
+                    </MenuItem.Header>
+
+                </MenuItem>
+
+
+            </MenuItem>
+        </Menu>
+
         <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Grid.ColumnSpan="8" Source="C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\bin\Debug\Board.PNG"/>
 
 
@@ -66,7 +84,7 @@
                                          CommandParameter="{Binding }">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{Binding YourImageProperty}" Stretch="Uniform"/>
-                                            <TextBlock Text="r" Margin="5" FontWeight="Bold" FontSize="20" Foreground="Aqua"
+                                            <TextBlock Text="K" Margin="5" FontWeight="Bold" FontSize="20" Foreground="Aqua"
                                                        Visibility="{Binding King, Converter={StaticResource ParityToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                                         </StackPanel>
 
@@ -85,9 +103,9 @@
         <Label x:Name="redScoreLabel" Content="{Binding LabelTextRed}" HorizontalAlignment="Left" Margin="1058,114,0,0" VerticalAlignment="Top" Height="28" Width="52"/>
         <Label x:Name="Black_Score" Content="Black Score" Margin="990,540,119,0" VerticalAlignment="Top" Height="30"/>
         <Label x:Name="blackScoreLabel" Content="{Binding LabelTextBlack}" HorizontalAlignment="Left" Margin="1053,542,0,0" VerticalAlignment="Top" Height="28" Width="52"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="169,593,0,0" VerticalAlignment="Top" Click="Save_Click"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="1058,10,0,0" VerticalAlignment="Top" Click="Save_Click"/>
         <Button Content="load" HorizontalAlignment="Left" Margin="150,300,0,0" VerticalAlignment="Top" Click="Load_Click"/>
-        <Button Content="Statistics" HorizontalAlignment="Left" Margin="150,228,0,0" VerticalAlignment="Top" Click="Statistics_Click"/>
+        <Label HorizontalAlignment="Left" Margin="1084,186,0,0" VerticalAlignment="Top"  Content="{Binding LabelTurn}"/>
 
     </Grid>
 </Window>

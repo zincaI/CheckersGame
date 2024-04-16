@@ -137,6 +137,97 @@ namespace Checkers.Services
             }
         }
 
+        public static void WriteBoardAndExtraDataToJson(ObservableCollection<ObservableCollection<Piece>> board, string extraData)
+        {
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "GameData.json");
+            try
+            {
+                var gameData = new RoundInfo
+                {
+                    Board = board,
+                    MultipleJumpsAllowed = extraData
+                };
+
+                string updatedJson = JsonConvert.SerializeObject(gameData, Formatting.Indented);
+                File.WriteAllText(filePath, updatedJson);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error writing to JSON file: " + ex.Message);
+            }
+        }
+
+        public static (ObservableCollection<ObservableCollection<Piece>>, string) ReadBoardAndExtraDataFromJson()
+        {
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "GameData.json");
+            (ObservableCollection<ObservableCollection<Piece>>, string) result = (new ObservableCollection<ObservableCollection<Piece>>(), "");
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    string json = File.ReadAllText(filePath);
+                    var gameData = JsonConvert.DeserializeObject<RoundInfo>(json);
+                    result = (gameData.Board, gameData.MultipleJumpsAllowed);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error reading JSON file: " + ex.Message);
+            }
+            return result;
+        }
+
+
+
+        public static void EnterInFile(bool parameter)
+        {
+            string continut = parameter.ToString();
+
+            // Definirea căii către fișierul în care vrei să salvezi șirul
+            string numeFisier = "mutiple.txt";
+
+            // Crearea și deschiderea fișierului pentru scriere
+            using (StreamWriter sw = new StreamWriter(numeFisier))
+            {
+                // Scrierea șirului în fișier
+                sw.Write(continut);
+            }
+
+            Console.WriteLine("Șirul a fost salvat în fișierul " + numeFisier);
+        }
+
+        public static bool ReadFromFileAndConvertToBool(string numeFisier)
+        {
+            bool rezultat = false;
+
+            try
+            {
+                // Verificăm dacă fișierul există
+                if (File.Exists(numeFisier))
+                {
+                    // Citim conținutul fișierului
+                    using (StreamReader sr = new StreamReader(numeFisier))
+                    {
+                        string continut = sr.ReadToEnd();
+
+                        // Convertim șirul citit într-o valoare booleană
+                        rezultat = bool.Parse(continut);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Fișierul nu există.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Eroare la citirea din fișier: " + ex.Message);
+            }
+
+            return rezultat;
+        }
+
+
 
     }
 }

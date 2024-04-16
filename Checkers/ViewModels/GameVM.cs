@@ -1,11 +1,12 @@
-﻿using Checkers.Models;
-using Checkers.Services;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using System;
 using Checkers.Commands;
+using Checkers.Models;
+using Checkers.Services;
 
 namespace Checkers.ViewModels
 {
@@ -19,8 +20,34 @@ namespace Checkers.ViewModels
         private int red;
         private int black;
 
-        public bool multiplejumps = false;
+        private bool multiplejumps;
+        private bool block = true;
 
+        public bool Block
+        {
+            get { return block; }
+            set
+            {
+                if (block != value)
+                {
+                    block = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool Multiplejumps
+        {
+            get { return multiplejumps; }
+            set
+            {
+                if (multiplejumps != value)
+                {
+                    multiplejumps = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
 
@@ -33,6 +60,21 @@ namespace Checkers.ViewModels
             //PieceClickedCommand = new RelayCommand(PieceClicked);
 
         }
+        private string labelTurn = "Black  player to move";
+
+        public string LabelTurn
+        {
+            get { return labelTurn; }
+            set
+            {
+                if (labelTurn != value)
+                {
+                    labelTurn = value;
+                    OnPropertyChanged(nameof(labelTurn));
+                }
+            }
+        }
+
         public int LabelTextRed
         {
             get { return red; }
@@ -130,19 +172,50 @@ namespace Checkers.ViewModels
 
         public void SaveClick()
         {
-            Utility.SaveGame(Board);
+
+            if (gameLogic.playerTurn == colorpiece.Red)
+                Utility.SaveGame(Board, multiplejumps.ToString(), "red");
+
+            else
+            {
+                Utility.SaveGame(Board, multiplejumps.ToString(), "black");
+            }
 
         }
 
-        public void Load_Click()
+        public void LoadClick()
         {
-            Board = Utility.LoadGame();
+            string aux, turn;
+            (Board, aux, turn) = Utility.LoadGame();
+            Multiplejumps = Convert.ToBoolean(aux);
+            if (turn == "red")
+            {
+                gameLogic.playerTurn = colorpiece.Red;
+                LabelTurn = "red";
+            }
+            else
+            {
+                gameLogic.playerTurn = colorpiece.Black;
+                LabelTurn = "black";
+
+            }
         }
 
         public void Statistics_Click()
         {
             (int scoreRed, int maxRed, int scoreBlack, int maxBlack) = ManageGames.ReadStatisticsFromJson();
             MessageBox.Show("Score red:" + scoreRed + "\nmaxRed:" + maxRed + "\nscoreBlack" + scoreBlack + "\nmaxBlack:" + maxBlack);
+
+        }
+
+        public void NewGame()
+        {
+            Block = true;
+            LabelTurn = "black";
+            gameLogic.playerTurn = colorpiece.Black;
+            LabelTextRed = 0;
+            LabelTextBlack = 0;
+            gameLogic = new GameLogic(this);
 
         }
 

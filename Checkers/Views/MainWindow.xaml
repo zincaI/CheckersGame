@@ -3,12 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Checkers"
+        xmlns:local="clr-namespace:Checkers.ViewModels"
+        xmlns:converters="clr-namespace:Checkers.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="382" Width="450">
+
+    <Window.DataContext>
+        <local:GameVM></local:GameVM>
+    </Window.DataContext>
+    
+    
+    
     <Window.Resources>
         <FontFamily x:Key="TempusSansITCFont">Tempus Sans ITC</FontFamily>
         <FontFamily x:Key="JockermanRegular">Tempus Sans ITC</FontFamily>
+
+        <converters:ParityToVisibilityConverter x:Key="ParityToVisibilityConverter"/>
+
+
+        <converters:ColorConverter x:Key="ColorConverter"/>
     </Window.Resources>
     <Window.Background>
         <ImageBrush ImageSource="C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\bin\Debug\wood.jpg" Stretch="Fill"/>
@@ -23,22 +36,23 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+
 
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource JockermanRegular}" FontSize="30" Foreground="White">MENU</TextBlock>
             <Button RenderTransformOrigin="0.50,0.500" Grid.Row="1" FontFamily="{StaticResource TempusSansITCFont}" Click="NewGameButton_Click" Content="New game">
             </Button>
-            <Button Grid.Row="2" FontFamily="{StaticResource TempusSansITCFont}" Content="Save">
-            </Button>
-            <Button Grid.Row="3" FontFamily="{StaticResource TempusSansITCFont}" Click="Button_Click_1" Content="Open game">
-            </Button>
-            <Button Grid.Row="4" FontFamily="{StaticResource TempusSansITCFont}" Content="Allow Multiple Jump">
-            </Button>
-            <Button Grid.Row="5" FontFamily="{StaticResource TempusSansITCFont}" Content="Statistics">
-            </Button>
-            <Button Grid.Row="6" FontFamily="{StaticResource TempusSansITCFont}" Content="Exit" Click="CloseButton_Click">
-            </Button>
+            <Button Grid.Row="2" FontFamily="{StaticResource TempusSansITCFont}" Content="Open game" Click="Load_Click"/>
+
+            <Button Name="ShowCheckbox" Grid.Row="3" FontFamily="{StaticResource TempusSansITCFont}" Content="Allow Multiple Jump" Click="Show_Checkbox"/>
+            <CheckBox Name="MultipleMoves" Grid.Row="3" Content="MultipleMoves" IsChecked="{Binding Multiplejumps, Mode=TwoWay}" IsEnabled="{Binding Block}" Margin="238,15,48,10" Visibility="Collapsed"/>
+            <Button Name="FinishedChoosing" Grid.Row="3" FontFamily="{StaticResource TempusSansITCFont}" Content="Finished choosing" Click="Finished_Choosing_Click" Margin="64,8,232,12" Visibility="Collapsed"/>
+
+
+            <Button Grid.Row="4" FontFamily="{StaticResource TempusSansITCFont}" Content="Statistics" Click="About_Click"/>
+
+            <Button Grid.Row="5" FontFamily="{StaticResource TempusSansITCFont}" Content="Exit" Click="CloseButton_Click"/>
+
         </Grid>
     </Border>
 </Window>

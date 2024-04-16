@@ -21,7 +21,7 @@ namespace Checkers.Views
     /// </summary>
     public partial class Game : Window
     {
-       // GameVM gm;
+        // GameVM gm;
         public Game()
         {
             InitializeComponent();
@@ -40,17 +40,18 @@ namespace Checkers.Views
         {
             if (DataContext is GameVM gameVM)
             {
-                gameVM.Load_Click();
+                gameVM.NewGame();
+
+                gameVM.LoadClick();
             }
         }
 
-        public void Statistics_Click(object sender, RoutedEventArgs e)
+        private void New_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is GameVM gameVM)
             {
-                gameVM.Statistics_Click();
+                gameVM.NewGame();
             }
         }
-
     }
 }

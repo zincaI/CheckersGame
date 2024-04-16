@@ -1,13 +1,7 @@
 ﻿using Checkers.Models;
 using Checkers.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 
 namespace Checkers.Services
 {
@@ -21,7 +15,7 @@ namespace Checkers.Services
         private int redScore = 0;
         private int blackScore = 0;
 
-        colorpiece playerTurn = colorpiece.Black;
+        public colorpiece playerTurn = colorpiece.Black;
 
         public GameLogic(GameVM gamevm)
         {
@@ -29,7 +23,7 @@ namespace Checkers.Services
             //vm.Board = new ObservableCollection<ObservableCollection<Piece>>();
 
             vm.Board = Utility.initBoard();
-            vm.multiplejumps = true;
+            vm.Multiplejumps = ManageGames.ReadFromFileAndConvertToBool("mutiple.txt");
         }
 
         public void PieceClicked(object parameter)
@@ -61,24 +55,43 @@ namespace Checkers.Services
                     {
                         MovePiece(piece, lastPiece);
                         lastPiece = piece;
-                        if (vm.multiplejumps == true && firstJump == false)
+                        if (vm.Multiplejumps == true && firstJump == false)
                         {
                             MultipleJumpsActions(piece.row, piece.column);
                         }
-                        else
+
+                        bool visibleGreenPieces = false;
+                        for (int i = 0; i < vm.Board.Count; i++)
+                        {
+                            for (int j = 0; j < vm.Board[i].Count; j++)
+                            {
+                                if (vm.Board[i][j].Color == colorpiece.Green && vm.Board[i][j].IsVisible == true)
+                                {
+                                    visibleGreenPieces = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (visibleGreenPieces == false)
                         {
                             if (playerTurn == colorpiece.Black)
                             {
                                 playerTurn = colorpiece.Red;
+                                vm.LabelTurn = "Red player to move";
+
                             }
                             else
                             {
                                 playerTurn = colorpiece.Black;
+                                vm.LabelTurn = "Black  player to move";
+
                             }
+                            firstJump = true;
+
+
+
                         }
-
-
-
                     }
                 }
             }
@@ -104,15 +117,19 @@ namespace Checkers.Services
                     }
                 }
 
-                if (!visibleGreenPieces)
+                if (visibleGreenPieces == false)
                 {
                     if (playerTurn == colorpiece.Black)
                     {
                         playerTurn = colorpiece.Red;
+                        vm.LabelTurn = "Red player to move";
+
                     }
                     else
                     {
                         playerTurn = colorpiece.Black;
+                        vm.LabelTurn = "Black  player to move";
+
                     }
                     firstJump = true;
 
@@ -136,6 +153,7 @@ namespace Checkers.Services
         }
         public void EndGame()
         {
+            vm.Block = true;
             if (redScore == 12)
             {
                 MessageBox.Show("A castigat rosul");
@@ -146,6 +164,7 @@ namespace Checkers.Services
                     maxRed = 12 - blackScore;
                 }
                 ManageGames.WriteStatisticsToJson((scoreRed, maxRed, scoreBlack, maxBlack));
+
             }
             else if (blackScore == 12)
             {
@@ -165,12 +184,14 @@ namespace Checkers.Services
             blackScore = 0;
             vm.LabelTextBlack = blackScore;
             vm.LabelTextRed = redScore;
-
+            ManageGames.EnterInFile(vm.Multiplejumps);
         }
 
 
         public void MovePiece(Piece current, Piece last)
         {
+            ManageGames.EnterInFile(vm.Multiplejumps);
+            vm.Block = false;
             if (current.row - last.row == 2 && current.column - last.column == 2)
             {
                 if (vm.Board[current.row - 1][current.column - 1].Color == colorpiece.Red)
