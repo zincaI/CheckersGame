@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:local="clr-namespace:Checkers.ViewModels" 
         xmlns:converters="clr-namespace:Checkers.Converters"
-        Background="Wheat">
+        >
 
     <Window.DataContext>
         <local:GameVM></local:GameVM>
@@ -16,9 +16,9 @@
 
 
         <Style x:Key="RotundButton" TargetType="Button">
-            <Setter Property="Width" Value="60"/>
+            <Setter Property="Width" Value="50"/>
 
-            <Setter Property="Height" Value="60"/>
+            <Setter Property="Height" Value="50"/>
 
             <Setter Property="Template">
                 <Setter.Value>
@@ -40,16 +40,28 @@
         <converters:ColorConverter x:Key="ColorConverter"/>
 
     </Window.Resources>
+
+    <Window.Background>
+        <ImageBrush ImageSource="sand.png" Stretch="Fill"/>
+    </Window.Background>
+
     <Viewbox>
-        <Grid Margin="50">
-            <CheckBox Content="MultipleMoves" FontFamily="{StaticResource JockermanRegular}" IsChecked="{Binding Multiplejumps, Mode=TwoWay}" IsEnabled="{Binding Block}" Margin="1095,4,-914,681"/>
+        <Grid Margin="50" Height="864" Width="1022">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="122*"/>
+                <ColumnDefinition Width="280*"/>
+                <ColumnDefinition Width="250*"/>
+                <ColumnDefinition Width="143*"/>
+                <ColumnDefinition Width="260*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Content="MultipleMoves" FontFamily="{StaticResource JockermanRegular}" IsChecked="{Binding Multiplejumps, Mode=TwoWay}" IsEnabled="{Binding Block}" Margin="107,-33,-93,703" Grid.Column="4" FontWeight="Bold" FontSize="20"/>
 
 
-            <Image Grid.Row="0" Grid.Column="0" Source="olive_table.jpg" Margin="-58,0,58,0"/>
+            <Image Grid.Row="0" Grid.Column="0" Source="sand_table.png" Margin="0,-46,26,46" Grid.ColumnSpan="4"/>
 
 
             <ItemsControl x:Name="ButtonsGrid" VerticalAlignment="Top" HorizontalAlignment="Left" 
-          ItemsSource="{Binding Board}" Height="722" Width="978" Margin="187,0,0,0">
+          ItemsSource="{Binding Board}" Height="776" Width="799" Margin="10,30,0,0" Grid.ColumnSpan="5">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <ItemsControl ItemsSource="{Binding}">
@@ -90,10 +102,11 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Label x:Name="redScoreLabel" Content="{Binding LabelTextRed}" FontFamily="{StaticResource JockermanRegular}" HorizontalAlignment="Left" Margin="1115,148,0,0" VerticalAlignment="Top" Height="28" Width="52"/>
-            <Label x:Name="blackScoreLabel" Content="{Binding LabelTextBlack}" FontFamily="{StaticResource JockermanRegular}" HorizontalAlignment="Left" Margin="1115,542,0,0" VerticalAlignment="Top" Height="28" Width="52"/>
-            <Button Content="Save" HorizontalAlignment="Left" Margin="1130,34,0,0" VerticalAlignment="Top" Click="Save_Click" Width="70"/>
-            <Label HorizontalAlignment="Left" Margin="1082,292,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JockermanRegular}"   Content="{Binding LabelTurn}"/>
+            <Label x:Name="redScoreLabel" Content="{Binding LabelTextRed}" FontFamily="{StaticResource JockermanRegular}" HorizontalAlignment="Left" Margin="81,220,0,0" VerticalAlignment="Top" Height="95" Width="52" Grid.Column="4" FontSize="50"/>
+            <Label x:Name="blackScoreLabel" Content="{Binding LabelTextBlack}" FontFamily="{StaticResource JockermanRegular}" HorizontalAlignment="Left" Margin="81,497,0,0" VerticalAlignment="Top" Height="88" Width="52" Grid.Column="4" FontSize="50" RenderTransformOrigin="0.382,1.57"/>
+            <Button Content="Save" HorizontalAlignment="Left" Margin="121,10,0,0" VerticalAlignment="Top" Click="Save_Click" Width="121" Grid.Column="4" RenderTransformOrigin="1.526,3.371" Height="36"/>
+            <Label HorizontalAlignment="Left" Margin="138,359,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JockermanRegular}"   Content="{Binding LabelTurn}" Grid.Column="3" Height="59" Width="299" RenderTransformOrigin="0.784,0.771" FontSize="25" FontWeight="Bold" Grid.ColumnSpan="2"/>
+            <Button Content="Back to menu" HorizontalAlignment="Left" Margin="121,51,0,0" VerticalAlignment="Top" Click="Menu_Click" Width="121" Grid.Column="4" RenderTransformOrigin="1.526,3.371" Height="36"/>
 
         </Grid>
     </Viewbox>

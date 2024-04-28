@@ -34,6 +34,13 @@ namespace Checkers.Views
             }
         }
 
+        public void Menu_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow menu=new MainWindow();
+            this.Close();
+            menu.Show();
+        }
+
         public void Load_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is GameVM gameVM)
