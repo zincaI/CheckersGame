@@ -45,7 +45,7 @@
             <CheckBox Content="MultipleMoves" FontFamily="{StaticResource JockermanRegular}" IsChecked="{Binding Multiplejumps, Mode=TwoWay}" IsEnabled="{Binding Block}" Margin="1095,4,-914,681"/>
 
 
-            <Image Grid.Row="0" Grid.Column="0" Source="C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\bin\Debug\olive_table.jpg" Margin="-58,0,58,0"/>
+            <Image Grid.Row="0" Grid.Column="0" Source="olive_table.jpg" Margin="-58,0,58,0"/>
 
 
             <ItemsControl x:Name="ButtonsGrid" VerticalAlignment="Top" HorizontalAlignment="Left" 

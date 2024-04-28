@@ -24,7 +24,7 @@
         <converters:ColorConverter x:Key="ColorConverter"/>
     </Window.Resources>
     <Window.Background>
-        <ImageBrush ImageSource="C:\Users\zinca\OneDrive\Desktop\anul2\sem2\MAP\CheckersGame\CheckersGame\Checkers\bin\Debug\wood.jpg" Stretch="Fill"/>
+        <ImageBrush ImageSource="wood.jpg" Stretch="Fill"/>
     </Window.Background>
     <Window.WindowStyle>none</Window.WindowStyle>
     <Border BorderBrush="White" BorderThickness="2" CornerRadius="10">
